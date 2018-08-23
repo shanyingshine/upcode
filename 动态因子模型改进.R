@@ -1,5 +1,5 @@
 library(MARSS)
-
+library(readxl)
 
 # ### 方案二
 
@@ -8,6 +8,7 @@ library(MARSS)
 data1 <- read_excel("C:/Users/Administrator/Desktop/Index0820.xlsx",n_max = 34)
 
 ncols <- ncol(data1)
+nrows <-  nrow(data1)
 
 features = data1[,2:ncols]
 #共计25个指标
@@ -17,7 +18,7 @@ features = data1[,2:ncols]
 
 
 features1 = t(features)
-features1 = features1[,1:34] #2017年第四季度
+features1 = features1[,1:(nrows)] #2017年第四季度
 #features1 = features1[,1:33] #2018第1季度
 #features1 = features1[,1:34] #2018第2季度
 line1 = rep(NA,ncols-1)
@@ -34,5 +35,5 @@ feature_index <- as.vector(unlist(feature_index[1]))
 #f = c('规模以上工业增加值增速','零售业商品销售额增速','餐饮业营业额增速','住宿业营业额增速','建筑业现价增长速度')
 subset(outt, t==35 & .rownames %in% feature_index)
 index_fitted <- subset(outt, t==35 & .rownames %in% feature_index)$.fitted
-
+print(index_fitted)
 write.csv(index_fitted , 'C:/Users/Administrator/iCloudDrive/Documents/code/upcode/Index_ch_fitted.csv')

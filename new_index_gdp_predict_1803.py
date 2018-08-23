@@ -89,6 +89,13 @@ train_data = pd.concat([train_data,gdp_data['地区生产总值']],axis=1)
 feature_select = SelectKBest(f_regression,k=5).fit(train_data.iloc[:,:-1],train_data.iloc[:,-1])
 feature_index = np.array(train_data.columns[np.argsort(-feature_select.scores_)[:5]])
 print(feature_index)
+
+FIndex = pd.DataFrame(feature_index)
+FIndex.to_csv('./feature_index.csv',index = 0, header = 0)
+
+
+
+
 X_new = SelectKBest(f_regression,k=5).fit_transform(train_data.iloc[:,:-1],train_data.iloc[:,-1])
 Y = np.array(train_data.iloc[:,-1])
 model = LinearRegression()
@@ -98,13 +105,6 @@ model.fit(X_new,Y)
 # In[45]:
 
 
-FIndex = pd.DataFrame(feature_index)
-
-
-# In[49]:
-
-
-FIndex.to_csv('./feature_index.csv',index = 0, header = 0)
 
 
 # In[50]:
